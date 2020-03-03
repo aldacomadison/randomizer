@@ -1,51 +1,55 @@
-// let students =[{
-//  name: "jake",
-//  food: "cake"
-// }, {
-//   name: "blake",
-//   food: "shake"
-// }, {
-//   name: "sam",
-//   food: "ham, candy, donuts"
-// }, {
-//   name: "cam",
-//   food: "pizza"
-// }];
-//let setlist;
 let randomIndex;
 let button;
+let animating = false;
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(500, 500);
   background(220);
-  textSize(32);
+  fill(0);
+  textSize(40);
   //text("click to start", width/2, height/2);
 
-  button = createButton('click to start randomizer');
-  button.position(50,50);
+  button = createButton('Welcome to EDC 2020');
+  button.position(175,225);
   button.mousePressed(greet);
 }
 
 function draw() {
+
+if(animating == true){
+  fill(random(255),random(255),random(255),random(255));
+  rect(random(width), random(height), random(50), 100);
+}
+
+
 }
 function greet(){
   if (setlist[0]){
-  background(random(200,255));
+  background(200);
   randomIndex = int(random(setlist.length));
   text(setlist[randomIndex].artist,50,50);
   setlist.splice(randomIndex,1);
   }
    button.remove();
 }
+function randomizer(){
+  animating = false;
 
-function mousePressed() {
-if (setlist[0]){
-background(random(200,255));
-randomIndex = int(random(setlist.length));
-text(setlist[randomIndex].artist,50,50);
-setlist.splice(randomIndex,1);
-} else {
-  background(random(255));
-  text("nothing left",50,50);
+  if (setlist[0]){
+  background(random(255),random(255),random(255),random(255));
+  randomIndex = int(random(setlist.length));
+  text(setlist[randomIndex].artist,175,225);
+  text(setlist[randomIndex].song,200,250);
+  setlist.splice(randomIndex,1);
+
+  } else {
+    background(random(255));
+    text("nothing left",50,50);
+  }
+
 }
+function mousePressed() {
+  animating = true;
+  setTimeout(randomizer,1000);
+
 }
