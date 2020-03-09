@@ -5,3 +5,17 @@ html, body {
 canvas {
   display: block;
 }
+
+
+.button {
+  padding: 20px;
+  background-color: #19e8ff;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}

@@ -2,26 +2,43 @@ let randomIndex;
 let button;
 let animating = false;
 let btn = false;
+let stages = [];
+let cnv;
+let imageCounter = 1;
+
+function preload(){
+for (let i=1; i<=12; i++){
+  stages[i] = loadImage("assets/stage_" + i + ".JPG");
+}
+}
 
 function setup() {
-  createCanvas(500, 500);
+  cnv = createCanvas(500, 500);
+  cnv.parent('#canvasDiv');
   background(220);
   fill(0);
   textSize(40);
   noStroke();
-
-  //decorate start screen
-  button = createButton('Welcome to EDC 2020');
-  button.position(175,225);
+  imageMode(CENTER);
+  frameRate(40);
+  button = select('#randButton');
   button.mousePressed(greet);
+  button.class("button");
 }
 
 function draw() {
 
   if(animating == true){
-    noStroke();
+    clear();
     fill(random(255),random(255),random(255),random(255));
-    rect(random(width), random(height), random(50), 100);
+    ellipse(random(width), random(height), random(50, 200));
+    tint(255,127);
+    image(stages[imageCounter], width/2, height/2);
+    if (imageCounter < stages.length - 1){
+    imageCounter++;
+  } else {
+    imageCounter = 1;
+  }
   }
   else if(btn==false) {
     let randR;
@@ -43,7 +60,7 @@ function draw() {
 
 function greet(){
 
-  button.remove();
+  // button.remove();
   btn = true;
 }
 
@@ -52,18 +69,20 @@ function randomizer(){
   clear();
   let date = ["Friday", "Saturday", "Sunday"]
   if (setlist[0]){
-  background(random(255),random(255),random(255),random(255));
+  clear();
   randomIndex = int(random(setlist.length));
-  fill(0);
-  textAlign(CENTER);
-  text(setlist[randomIndex].artist,145,200);
-  text(random(setlist[randomIndex].song),250,250);
-  text(random(date),300,300);
+  fill(255);
+  textStyle(BOLD);
+  tint(255,255);
+  image(random(stages), width/2,height/2);
+  text(setlist[randomIndex].artist,50,150);
+  text(random(setlist[randomIndex].song),50,250);
+  text(random(date),50,350);
   setlist.splice(randomIndex,1);
 
   } else {
     background(random(255));
-    text("nothing left",50,50);
+    text("WEEKEND OVER",150,250);
   }
 }
 
@@ -71,6 +90,6 @@ function mousePressed() {
   if(btn==true)
   {
     animating = true;
-    setTimeout(randomizer,1000);
+    setTimeout(randomizer,2000);
   }
 }
