@@ -8,7 +8,7 @@ let imageCounter = 1;
 
 function preload(){
 for (let i=1; i<=12; i++){
-  stages[i] = loadImage("assets/stage_" + i + ".JPG");
+  stages[i] = loadImage("assets/stage_" + i + ".jpg");
 }
 }
 
